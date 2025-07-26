@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keshav | Web Developer</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <script src="javascript.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+  <img src=" " alt="Keshav Logo" class="site-logo">
+</header>
+
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-box">K</div>
+      <p>Keshav</p>
+      <span>Web Developer</span>
+
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" id="about-link">About</a></li>
+        <li><a href="#" id="skills-link">My Skills</a></li>
+
+        <li><a href="#">Work</a></li>
+        
+        <li><a href="#" class="contact-btn" onclick="openModal()">Follow us</a></li>
+      
+        <li class="active"><a href="#">Blog</a></li>
+      </ul>
+    </nav>
+    <div class="socials">
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    
+
+    <div class="hero">
+
+      <h1 class="intro">
+        <div class="line-one"> Hi,This is </div>
+        <span class="name-animation">
+          <span>K</span><span>E</span><span>S</span><span>H</span><span>@</span><span>V</span>
+        </span>
+        <div class="line-three"> ,Web Developer</div>
+      </h1>
+      
+
+      <section id="about" class="section hidden">
+
+        <div class="section-header">
+          <h2>About Me</h2>
+          <button id="close-about" class="close-btn">&times;</button>
+        </div>
+        <p>
+          Hi, I'm Keshav — a passionate Frontend Developer who loves turning ideas into pixel-perfect, interactive experiences. I specialize in building modern, responsive web interfaces using HTML, CSS, JavaScript, and React. Always learning, always coding.
+        </p>
+      </section>
+
+      <section id="skills" class="section hidden">
+        <div class="section-header">
+          <h2>My Skills</h2>
+          <button id="close-skills" class="close-btn">&times;</button>
+        </div>
+        <div class="skills-grid">
+          <span class="skill-badge">HTML</span>
+          <span class="skill-badge">CSS</span>
+          <span class="skill-badge">JavaScript</span>
+          <span class="skill-badge">SQL</span>
+          <span class="skill-badge">Microservices</span>
+          <span class="skill-badge">linux-ubuntu</span>
+          <span class="skill-badge">PowerShell</span>
+          <span class="skill-badge">CloudShell</span>
+          <span class="skill-badge">AWS</span>
+          <span class="skill-badge">Docker</span>
+          <span class="skill-badge">Kubernetes</span>
+          <span class="skill-badge">Gafana</span>
+          <span class="skill-badge">Jinkins</span>
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">Data Visulization</span>
+          <span class="skill-badge">Power Bi</span>
+          <span class="skill-badge">MS Excel</span>
+        </div>
+      </section>
+          
+      <p>Front End Developer | Cloud and Devops Engineer</p>
+      
+      <button class="glow-btn" onclick="openModal()">Contact Me</button>
+      <button class="glow-btn">View Projects</button>
+      <button class="glow-btn">Certifications</button>
+      
+     
+    </div>
+    <div class="scroll-indicator">scroll down &darr;</div>
+  </main>
+
+  <script src="script.js"></script>
+
+
+<!-- Contact Modal Box -->
+<div id="contactModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Get in Touch</h2>
+    <div class="contact-options">
+      <a href="keshavsen1518@gmail.com">📧 Email Me</a>
+      <a href="https://wa.me/918882260778" target="_blank">💬 WhatsApp Me</a>
+    </div>
+    <div class="social-links">
+      <p>Follow us</p>
+  <a href="https://www.instagram.com/keshav_s37/" target="_blank">📸</a>
+      <a href="https://twitter.com/yourprofile" target="_blank">🐦</a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank">💼</a>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
