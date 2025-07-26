@@ -15,15 +15,15 @@ jobs:
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Build Frontend
-      run: docker build -f Dockerfile.frontend -t keshu37/portfolio-frontend .
+      run: docker build -f Dockerfile.frontend -t keshus37/portfolio-frontend .
 
     - name: Push Frontend
-      run: docker push keshu37/portfolio-frontend
+      run: docker push keshus37/portfolio-frontend
 
     - name: Build Backend
-      run: docker build -f Dockerfile.backend -t keshu37/portfolio-backend .
+      run: docker build -f Dockerfile.backend -t keshus37/portfolio-backend .
 
     - name: Push Backend
-      run: docker push keshu37/portfolio-backend
+      run: docker push keshus37/portfolio-backend
 
       
