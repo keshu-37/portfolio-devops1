@@ -18,12 +18,12 @@ jobs:
       run: docker build -f Dockerfile.frontend -t keshu37/portfolio-frontend .
 
     - name: Push Frontend
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-frontend
+      run: docker push keshu37/portfolio-frontend
 
     - name: Build Backend
-      run: docker build -f Dockerfile.backend -t ${{ secrets.DOCKER_USERNAME }}/portfolio-backend .
+      run: docker build -f Dockerfile.backend -t keshu37/portfolio-backend .
 
     - name: Push Backend
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-backend
+      run: docker push keshu37/portfolio-backend
 
       
