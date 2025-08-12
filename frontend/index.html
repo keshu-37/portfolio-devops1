@@ -1,132 +1,316 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />r
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keshav | Web Developer </title>
-  <link rel="stylesheet" href="style.css" />
-  
-  <script src="javascript.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keshav | Portfolio</title>
+  <style>
+    :root{
+      --bg:#0f0f0f; --text:#e7e7e7; --muted:#a6a6a6; --accent:#ff4d5a;
+      --maxw:1200px;
+    }
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Inter,Arial;
+      background:var(--bg); color:var(--text); overflow-y:auto;
+    }
+    a{color:inherit; text-decoration:none}
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+      background:rgba(15,15,15,.7); border-bottom:1px solid #222;
+    }
+    .nav{
+      max-width:var(--maxw); margin:0 auto; display:flex; align-items:center;
+      justify-content:space-between; padding:12px 16px;
+    }
+    .brand{font-weight:700; letter-spacing:.5px}
+    .nav a{padding:8px 10px; border-radius:8px}
+    .nav a:hover,.nav a:focus{background:#1b1b1b; outline:none}
+    /* Layout */
+    .container{max-width:var(--maxw); margin:0 auto; padding:24px 16px}
+    section{padding:48px 0}
+    h1,h2{margin:0 0 12px}
+    .muted{color:var(--muted)}
+    /* Hero */
+    .hero{
+      min-height:60vh; display:grid; place-items:center; text-align:center;
+    }
+    .cta{display:inline-flex; gap:12px; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:10px; border:1px solid #2a2a2a;
+      transition:all .2s ease-in-out; cursor:pointer; color:var(--text);
+      background:#151515;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#3a3a3a}
+    .btn-accent{background:var(--accent); color:#111; border-color:transparent}
+    /* Grids */
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns:repeat(1,minmax(0,1fr));
+    }
+    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{
+      background:#131313; border:1px solid #222; border-radius:14px; overflow:hidden;
+      transition:transform .2s ease, border-color .2s ease; cursor:pointer;
+    }
+    .card:hover{transform:translateY(-2px); border-color:#2e2e2e}
+    .thumb{width:100%; aspect-ratio:16/10; object-fit:cover; display:block}
+    .card-body{padding:10px 12px}
+    .tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
+    .tag{font-size:12px; padding:2px 8px; border:1px solid #2a2a2a; border-radius:999px; color:var(--muted)}
+    /* Lightbox (modal) */
+    .modal{
+      position:fixed; inset:0; display:none; place-items:center;
+      background:rgba(0,0,0,.55); z-index:100; padding:16px;
+    }
+    .modal[open]{display:grid}
+    .dialog{
+      width:min(100%,900px); background:#101010; border:1px solid #2a2a2a;
+      border-radius:14px; overflow:hidden; display:grid; grid-template-rows:auto 1fr auto;
+      max-height:90vh;
+    }
+    .dialog-header,.dialog-footer{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px; background:#141414; border-bottom:1px solid #222;
+    }
+    .dialog-footer{border-top:1px solid #222; border-bottom:none}
+    .viewer{position:relative; background:#0b0b0b; display:grid; place-items:center}
+    .viewer img{max-width:100%; max-height:70vh; object-fit:contain}
+    .nav-btn{
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:#0009; color:#fff; border:none; padding:10px 12px; border-radius:10px; cursor:pointer;
+    }
+    .prev{left:10px} .next{right:10px}
+    .close{background:#1d1d1d; border:1px solid #2a2a2a; color:#fff}
+    .close:hover{background:#242424}
+    .links a{margin-right:10px}
+    /* Accessibility focus */
+    :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  </style>
 </head>
-
 <body>
-  <header class="site-header">
-  <img src=" " alt="Keshav Logo" class="site-logo">
-</header>
-
-
-  <!-- Sidebar Navigation -->
-  <aside class="sidebar">
-    <div class="logo">
-      <div class="logo-box">K</div>
-      <p>Keshav</p>
-      <span>Web Developer</span>
-
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#" id="about-link">About</a></li>
-        <li><a href="#" id="skills-link">My Skills</a></li>
-
-        <li><a href="#">Work</a></li>
-        
-        <li><a href="#" class="contact-btn" onclick="openModal()">Follow us</a></li>
-      
-        <li class="active"><a href="#">Blog</a></li>
-      </ul>
+  <header>
+    <nav class="nav">
+      <div class="brand">Keshav</div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#certificates" data-open="certificates">Certificates</a>
+        <a href="#projects" data-open="projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
-    <div class="socials">
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-github"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-    </div>
-  </aside>
+  </header>
 
-  <!-- Main Content -->
   <main>
-    
-
-    <div class="hero">
-
-      <h1 class="intro">
-        <div class="line-one"> Hi,This is </div>
-        <span class="name-animation">
-          <span>K</span><span>E</span><span>S</span><span>H</span><span>@</span><span>V</span>
-        </span>
-        <div class="line-three"> PYTHON DEVELOPER | DEVOPS ENGINEER  </div>
-      </h1>
-      
-
-      <section id="about" class="section hidden">  
-
-        <div class="section-header">
-          <h2>About Me</h2>
-          <button id="close-about" class="close-btn">&times;</button>
+    <section id="home" class="hero container">
+      <div>
+        <h1>Hi, this is <span style="color:var(--accent)">Keshav</span></h1>
+        <p class="muted">Web Developer | DevOps Engineer</p>
+        <div class="cta">
+          <a class="btn btn-accent" href="#certificates" data-open="certificates">View Certificates</a>
+          <a class="btn" href="#projects" data-open="projects">View Projects</a>
         </div>
-        <p>
-          Hi, I'm Keshav — a passionate Frontend Developer who loves turning ideas into pixel-perfect, interactive experiences. I specialize in building modern, responsive web interfaces using HTML, CSS, JavaScript, and React. Always learning, always coding.
-        </p>
-      </section>
+      </div>
+    </section>
 
-      <section id="skills" class="section hidden">
-        <div class="section-header">
-          <h2>My Skills</h2>
-          <button id="close-skills" class="close-btn">&times;</button>
-        </div>
-        <div class="skills-grid">
-          <span class="skill-badge">HTML</span>
-          <span class="skill-badge">CSS</span>
-          <span class="skill-badge">JavaScript</span>
-          <span class="skill-badge">SQL</span>
-          <span class="skill-badge">Microservices</span>
-          <span class="skill-badge">linux-ubuntu</span>
-          <span class="skill-badge">PowerShell</span>
-          <span class="skill-badge">CloudShell</span>
-          <span class="skill-badge">AWS</span>
-          <span class="skill-badge">Docker</span>
-          <span class="skill-badge">Kubernetes</span>
-          <span class="skill-badge">Gafana</span>
-          <span class="skill-badge">Jinkins</span>
-          <span class="skill-badge">Python</span>
-          <span class="skill-badge">Data Visulization</span>
-          <span class="skill-badge">Power Bi</span>
-          <span class="skill-badge">MS Excel</span>
-        </div>
-      </section>
-          
-      <p>Front End Developer | Cloud and Devops Engineer</p>
-      
-      <button class="glow-btn" onclick="openModal()">Contact Me</button>
-      <button class="glow-btn">View Projects</button>
-      <button class="glow-btn">Certifications</button>
-      
-     
-    </div>
-    <div class="scroll-indicator">scroll down &darr;</div>
+    <section id="certificates" class="container">
+      <h2>Certificates</h2>
+      <p class="muted">Click any certificate to view larger.</p>
+      <div id="certGrid" class="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="projects" class="container">
+      <h2>Projects</h2>
+      <p class="muted">Click a project to see screenshots and links.</p>
+      <div id="projGrid" class="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2>Contact</h2>
+      <p class="muted">Email: example@email.com</p>
+    </section>
   </main>
 
-  <script src="script.js"></script>
-
-
-<!-- Contact Modal Box -->
-<div id="contactModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2>Get in Touch</h2>
-    <div class="contact-options">
-      <a href="keshavsen1518@gmail.com">📧 Email Me</a>
-      <a href="https://wa.me/918882260778" target="_blank">💬 WhatsApp Me</a>
-    </div>
-    <div class="social-links">
-      <p>Follow us</p>
-  <a href="https://www.instagram.com/keshav_s37/" target="_blank">📸</a>
-      <a href="https://twitter.com/yourprofile" target="_blank">🐦</a>
-    <a href="https://linkedin.com/in/yourprofile" target="_blank">💼</a>
+  <!-- Reusable Modal -->
+  <div id="lightbox" class="modal" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="dialog">
+      <div class="dialog-header">
+        <div id="lbTitle">Title</div>
+        <button id="lbClose" class="close btn" aria-label="Close">Close</button>
+      </div>
+      <div class="viewer">
+        <button class="nav-btn prev" id="lbPrev" aria-label="Previous">‹</button>
+        <img id="lbImg" alt="" />
+        <button class="nav-btn next" id="lbNext" aria-label="Next">›</button>
+      </div>
+      <div class="dialog-footer">
+        <div class="links">
+          <a id="lbDemo" class="btn btn-accent" target="_blank" rel="noopener" style="display:none">Live Demo</a>
+          <a id="lbCode" class="btn" target="_blank" rel="noopener" style="display:none">Source Code</a>
+        </div>
+        <div id="lbCounter" class="muted"></div>
+      </div>
     </div>
   </div>
-</div>
 
+  <script>
+    // Data: replace with your real items
+    const certificatesData = [
+      {id:'cert-1', src:'https://picsum.photos/id/1015/800/500', title:'AWS Cloud Practitioner', issuer:'Amazon'},
+      {id:'cert-2', src:'https://picsum.photos/id/1025/800/500', title:'Kubernetes Fundamentals', issuer:'CNCF'},
+      {id:'cert-3', src:'https://picsum.photos/id/1003/800/500', title:'DevOps Essentials', issuer:'Coursera'},
+      {id:'cert-4', src:'https://picsum.photos/id/1060/800/500', title:'Docker Deep Dive', issuer:'Udemy'},
+      {id:'cert-5', src:'https://picsum.photos/id/1043/800/500', title:'Linux Admin', issuer:'Linux Foundation'},
+      {id:'cert-6', src:'https://picsum.photos/id/1050/800/500', title:'CI/CD Pipelines', issuer:'Pluralsight'}
+    ];
+
+    const projectsData = [
+      {id:'proj-1', src:'https://picsum.photos/id/1011/800/500', title:'Portfolio Site', desc:'Next.js + Tailwind', demo:'#', code:'#'},
+      {id:'proj-2', src:'https://picsum.photos/id/1016/800/500', title:'DevOps Dashboard', desc:'Grafana + Prometheus', demo:'#', code:'#'},
+      {id:'proj-3', src:'https://picsum.photos/id/1020/800/500', title:'E‑commerce API', desc:'Node + PostgreSQL', demo:'#', code:'#'},
+      {id:'proj-4', src:'https://picsum.photos/id/1033/800/500', title:'Chat App', desc:'Socket.io', demo:'#', code:'#'},
+      {id:'proj-5', src:'https://picsum.photos/id/1041/800/500', title:'Infra as Code', desc:'Terraform on AWS', demo:'#', code:'#'},
+      {id:'proj-6', src:'https://picsum.photos/id/1055/800/500', title:'K8s Microservices', desc:'Go + Kubernetes', demo:'#', code:'#'}
+    ];
+
+    // Render helpers
+    const certGrid = document.getElementById('certGrid');
+    const projGrid = document.getElementById('projGrid');
+
+    function createCertCard(item){
+      const el = document.createElement('article');
+      el.className='card';
+      el.tabIndex=0;
+      el.innerHTML = `
+        <img class="thumb" loading="lazy" src="${item.src}" alt="${item.title}" />
+        <div class="card-body">
+          <div>${item.title}</div>
+          <div class="muted" style="font-size:13px">${item.issuer}</div>
+        </div>`;
+      el.addEventListener('click', ()=>openLightbox('certificates', certificatesData, item.id));
+      el.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLightbox('certificates', certificatesData, item.id);} });
+      return el;
+    }
+
+    function createProjectCard(item){
+      const el = document.createElement('article');
+      el.className='card';
+      el.tabIndex=0;
+      el.innerHTML = `
+        <img class="thumb" loading="lazy" src="${item.src}" alt="${item.title}" />
+        <div class="card-body">
+          <div>${item.title}</div>
+          <div class="tags">
+            <span class="tag">${item.desc}</span>
+          </div>
+        </div>`;
+      el.addEventListener('click', ()=>openLightbox('projects', projectsData, item.id));
+      el.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLightbox('projects', projectsData, item.id);} });
+      return el;
+    }
+
+    certificatesData.forEach(c=>certGrid.appendChild(createCertCard(c)));
+    projectsData.forEach(p=>projGrid.appendChild(createProjectCard(p)));
+
+    // Lightbox
+    const modal = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    const lbClose = document.getElementById('lbClose');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbDemo = document.getElementById('lbDemo');
+    const lbCode = document.getElementById('lbCode');
+
+    let currentSet = [];
+    let currentIndex = 0;
+    let currentKind = 'certificates';
+
+    function updateViewer(){
+      const item = currentSet[currentIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.title;
+      lbTitle.textContent = item.title || 'Preview';
+      lbCounter.textContent = ${currentIndex+1}/${currentSet.length};
+      // Show project links when available
+      if(currentKind==='projects'){
+        lbDemo.style.display = item.demo ? '' : 'none';
+        lbCode.style.display = item.code ? '' : 'none';
+        if(item.demo) lbDemo.href = item.demo;
+        if(item.code) lbCode.href = item.code;
+      } else {
+        lbDemo.style.display = 'none';
+        lbCode.style.display = 'none';
+      }
+      // Update URL hash for deep-link
+      const hash = #${currentKind}?open=${encodeURIComponent(item.id)};
+      history.replaceState(null, '', hash);
+    }
+
+    function openLightbox(kind, set, id){
+      currentKind = kind;
+      currentSet = set;
+      currentIndex = Math.max(0, set.findIndex(x=>x.id===id));
+      modal.setAttribute('open','');
+      document.body.style.overflow='hidden';
+      updateViewer();
+      lbClose.focus();
+    }
+    function closeLightbox(){
+      modal.removeAttribute('open');
+      document.body.style.overflow='';
+      // Keep section hash without query
+      history.replaceState(null,'',#${currentKind});
+    }
+    function step(delta){
+      currentIndex = (currentIndex + delta + currentSet.length) % currentSet.length;
+      updateViewer();
+    }
+    lbPrev.addEventListener('click', ()=>step(-1));
+    lbNext.addEventListener('click', ()=>step(1));
+    lbClose.addEventListener('click', closeLightbox);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeLightbox(); });
+    window.addEventListener('keydown', (e)=>{
+      if(!modal.hasAttribute('open')) return;
+      if(e.key==='Escape') closeLightbox();
+      if(e.key==='ArrowLeft') step(-1);
+      if(e.key==='ArrowRight') step(1);
+    });
+
+    // Smooth scroll + optional auto-open when clicking nav links
+    document.querySelectorAll('[data-open]').forEach(link=>{
+      link.addEventListener('click', (e)=>{
+        const kind = link.getAttribute('data-open');
+        // Let browser scroll to section via href, then optionally open first item
+        setTimeout(()=>{
+          const set = kind==='projects'?projectsData:certificatesData;
+          // Auto-open first item if user clicked from header/hero
+          openLightbox(kind,set,set[0].id);
+        }, 300);
+      });
+    });
+
+    // Deep-link support: #certificates?open=cert-3 or #projects?open=proj-2
+    function parseOpenFromHash(){
+      const hash = window.location.hash.slice(1);
+      if(!hash) return;
+      const [idPart, query] = hash.split('?');
+      const params = new URLSearchParams(query || '');
+      const openId = params.get('open');
+      if(idPart==='certificates' && openId){
+        document.getElementById('certificates').scrollIntoView({behavior:'smooth'});
+        openLightbox('certificates', certificatesData, openId);
+      }
+      if(idPart==='projects' && openId){
+        document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+        openLightbox('projects', projectsData, openId);
+      }
+    }
+    window.addEventListener('load', parseOpenFromHash);
+  </script>
 </body>
-
 </html>
