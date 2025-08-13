@@ -1,132 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />r
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keshav | Web Developer </title>
-  <link rel="stylesheet" href="style.css" />
-  
-  <script src="javascript.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Keshav | Python Developer & DevOps Engineer</title>
+
+<!-- Font Awesome (icons) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+<style>
+  /* Reset & vars */
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --sidebar-w:280px;
+    --bg:#0b0d11;
+    --card:#151821;
+    --muted:#b8bcc8;
+    --accent:#ff3b7f;
+    --accent-2:#ff6584;
+    --success:#00d4aa;
+    --shadow:0 10px 40px rgba(0,0,0,.45);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  html,body{height:100%}
+  body{
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial;
+    color:#fff;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("ksv.jpg") center center / cover no-repeat fixed;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-y:auto;
+  }
+
+  /* Sidebar */
+  .sidebar{
+    position:fixed; left:0; top:0; bottom:0;
+    width:var(--sidebar-w);
+    padding:28px 22px;
+    background:linear-gradient(180deg,#14171b,#111217);
+    border-right:1px solid rgba(255,255,255,0.03);
+    display:flex; flex-direction:column; gap:18px;
+    box-shadow:var(--shadow); z-index:2000;
+  }
+  .logo-row{ display:flex; gap:14px; align-items:center; margin-bottom:6px }
+  .logo-circle{
+    width:66px; height:66px; border-radius:16px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex; align-items:center; justify-content:center; font-weight:800;
+    font-size:26px; color:#fff; box-shadow:0 8px 30px rgba(255,59,127,0.25);
+  }
+  .logo-info p{ font-size:1.1rem; font-weight:700; margin-bottom:2px }
+  .logo-info span{ color:var(--muted); font-size:.9rem }
+
+  nav{ margin-top:8px; flex:1 }
+  nav ul{ list-style:none; display:flex; flex-direction:column; gap:10px }
+  nav a{
+    display:flex; align-items:center; gap:12px;
+    padding:12px; text-decoration:none; color:var(--muted);
+    border-radius:12px; font-weight:600; transition:all .25s var(--ease);
+  }
+  nav a i{ width:22px; text-align:center; font-size:1.05rem }
+  nav a:hover{ transform:translateX(8px); color:#fff; background:rgba(255,255,255,0.02) }
+
+  /* active like 'Blog' in screenshot */
+  nav li.active a{
+    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    color:#fff; transform:none;
+  }
+  .nav-pill{ background:rgba(255,255,255,0.02); padding:12px; border-radius:14px }
+
+  /* socials bottom */
+  .sidebar .socials{ display:flex; gap:10px; margin-top:auto; justify-content:center }
+  .social-btn{
+    width:44px; height:44px; border-radius:10px; background:#0f1215; display:flex;align-items:center;justify-content:center;
+    color:var(--muted); text-decoration:none; border:1px solid rgba(255,255,255,0.03);
+    transition:all .2s var(--ease);
+  }
+  .social-btn:hover{ transform:translateY(-6px); color:var(--accent) }
+
+  /* Main content */
+  main{ margin-left:var(--sidebar-w); min-height:100vh; padding:0; }
+
+  /* Hero */
+  .hero{
+    min-height:100vh; width:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    padding:38px;
+    position:relative;
+  }
+
+  /* ---------- BIGGER FRONT TEXT (adjusted) ---------- */
+  .intro-line{
+    /* made much larger */
+    font-size: clamp(28px, 4.4vw, 56px);
+    font-weight:300;
+    opacity:.98;
+    margin-bottom:8px;
+    color:#e9e9e9;
+  }
+
+  /* Big name: each letter is animated and made larger */
+  .big-name{
+    font-size: clamp(40px, 6.8vw, 95px); /* <- larger */
+    font-weight:900;
+    letter-spacing:2px;
+    margin:6px 0;
+    color:var(--accent);
+    text-transform:uppercase;
+    text-shadow: 0 10px 50px rgba(0,0,0,0.7);
+    display:inline-block;
+    line-height:0.88;
+  }
+  .big-name span{
+    display:inline-block;
+    animation:letterBounce 2.8s var(--ease) infinite;
+    transform-origin: center;
+    will-change: transform;
+    padding:0 3px;
+  }
+  .big-name span:nth-child(1){ animation-delay: 0.08s; }
+  .big-name span:nth-child(2){ animation-delay: 0.16s; }
+  .big-name span:nth-child(3){ animation-delay: 0.24s; }
+  .big-name span:nth-child(4){ animation-delay: 0.32s; }
+  .big-name span:nth-child(5){ animation-delay: 0.40s; }
+  .big-name span:nth-child(6){ animation-delay: 0.48s; }
+
+  @keyframes letterBounce{
+    0%,50%,100% { transform: translateY(0) scale(1); }
+    25% { transform: translateY(-18px) scale(1.08); } /* slightly bigger bounce */
+    75% { transform: translateY(-8px) scale(1.03); }
+  }
+
+  /* role/subtitle larger */
+  .role{
+    font-size: clamp(20px, 3vw, 36px); /* increased upper size */
+    margin-top:8px;
+    letter-spacing:6px;
+    font-weight:700;
+    background: linear-gradient(90deg,#40d9a6,#f3e85b,#ff9a5c);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .subtext{
+    color:var(--muted);
+    margin-top:12px;
+    font-size: clamp(16px, 1.6vw, 20px); /* slightly larger */
+  }
+
+  .hero .cta{ margin-top:28px; display:flex; gap:16px; align-items:center; justify-content:center; flex-wrap:wrap }
+  .btn{
+    border:none; padding:12px 20px; border-radius:14px; cursor:pointer; font-weight:700;
+    display:inline-flex; gap:10px; align-items:center; transition:all .22s var(--ease);
+  }
+  .btn-contact{ background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 36px rgba(255,59,127,0.18) }
+  .btn-projects{ background:rgba(255,255,255,0.04); color:#fff; border:1px solid rgba(255,255,255,0.03) }
+  .btn-cert{ background:linear-gradient(90deg,#00d4aa,#00b894); color:#fff; box-shadow:0 10px 36px rgba(0,212,170,0.12) }
+  .btn:hover{ transform:translateY(-6px) }
+
+  /* scroll indicator */
+  .scroll-ind{ position:absolute; bottom:28px; left:50%; transform:translateX(-50%); color:var(--muted); text-align:center; font-size:14px }
+  .scroll-arrow{ display:block; margin-top:8px; font-size:18px; animation:bob 2s infinite }
+  @keyframes bob{ 0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)} }
+
+  /* Sections */
+  .section{
+    width:min(1100px,92%); margin:26px auto; background:linear-gradient(180deg,#15181b,#101214);
+    border-radius:20px; padding:22px; border:1px solid rgba(255,255,255,0.03);
+    box-shadow:var(--shadow); transition:all .45s var(--ease);
+    overflow:hidden;
+  }
+  .section.hidden{ max-height:0; padding:0 22px; margin:0 auto; opacity:0 }
+  .section.show{ max-height:2200px; opacity:1; padding:22px }
+
+  .section .section-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px }
+  .section h2{ font-size:22px; display:flex; gap:10px; align-items:center; font-weight:800 }
+  .close-btn{ background:#111217; border: none; color:var(--muted); padding:8px 12px; border-radius:10px; cursor:pointer }
+  .close-btn:hover{ background:var(--accent); color:#fff }
+
+  /* grid for projects/certs - 3 across on large screen */
+  .grid{ display:grid; gap:16px; grid-template-columns: repeat(3, 1fr) }
+  .card{ background:#0f1315; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 30px rgba(0,0,0,.6); cursor:pointer; transition:transform .25s var(--ease) }
+  .card:hover{ transform:translateY(-8px) }
+  .card img{ display:block; width:100%; height:190px; object-fit:cover }
+  .card .meta{ padding:12px; color:var(--muted) }
+  .card h3{ margin-bottom:6px; font-size:16px; color:#fff }
+
+  /* make grids responsive */
+  @media (max-width:1100px){ .grid{ grid-template-columns:repeat(2, 1fr) } }
+  @media (max-width:700px){ .sidebar{ position:relative; width:100%; height:auto; padding:14px } main{ margin-left:0 } .hero{ padding:30px 16px } .big-name{ font-size:48px } .grid{ grid-template-columns:1fr } }
+
+  /* lightbox */
+  .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:3000 }
+  .lightbox img{ max-width:92%; max-height:92%; border-radius:12px }
+
+  /* small helpers */
+  .muted{ color:var(--muted) }
+  .gap-12{ height:12px }
+</style>
 </head>
-
 <body>
-  <header class="site-header">
-  <img src=" " alt="Keshav Logo" class="site-logo">
-</header>
 
-
-  <!-- Sidebar Navigation -->
-  <aside class="sidebar">
-    <div class="logo">
-      <div class="logo-box">K</div>
-      <p>Keshav</p>
-      <span>Web Developer</span>
-
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Sidebar">
+    <div class="logo-row">
+      <div class="logo-circle">K</div>
+      <div class="logo-info">
+        <p>Keshav</p>
+        <span class="muted">Web Developer</span>
+      </div>
     </div>
+
     <nav>
       <ul>
-        <li><a href="#" id="about-link">About</a></li>
-        <li><a href="#" id="skills-link">My Skills</a></li>
-
-        <li><a href="#">Work</a></li>
-        
-        <li><a href="#" class="contact-btn" onclick="openModal()">Follow us</a></li>
-      
-        <li class="active"><a href="#">Blog</a></li>
+        <li><a href="#" id="about-link"><i class="fas fa-user"></i> About</a></li>
+        <li><a href="#" id="skills-link"><i class="fas fa-code"></i> My Skills</a></li>
+        <li><a href="#" id="projects-link"><i class="fas fa-briefcase"></i> Work</a></li>
+        <li><a href="#" id="follow-link" onclick="openModal()"><i class="fas fa-share-alt"></i> Follow us</a></li>
+        <li class="active"><a href="#"><i class="fas fa-rss"></i> Blog</a></li>
       </ul>
     </nav>
-    <div class="socials">
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-github"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
+
+    <div class="socials" role="list">
+      <a class="social-btn" href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a class="social-btn" href="#" title="GitHub"><i class="fab fa-github"></i></a>
+      <a class="social-btn" href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <main>
-    
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="intro-line">Hi, This is</div>
 
-    <div class="hero">
+      <!-- big-name uses spans for per-letter animation -->
+      <div class="big-name" aria-hidden="false">
+        <span>K</span><span>E</span><span>S</span><span>H</span><span>@</span><span>V</span>
+      </div>
+      <div class="role">PYTHON DEVELOPER | DEVOPS ENGINEER</div>
+      <div class="subtext">Front End Developer | Cloud and DevOps Engineer</div>
+      <div class="cta" style="margin-top:26px">
+        <button class="btn btn-contact" onclick="openModal()"><i class="fas fa-envelope"></i> Contact Me</button>
+        <button class="btn btn-projects" id="view-projects-btn"><i class="fas fa-project-diagram"></i> View Projects</button>
+        <button class="btn btn-cert" id="cert-btn"><i class="fas fa-certificate"></i> Certifications</button>
+      </div>
 
-      <h1 class="intro">
-        <div class="line-one"> Hi,This is </div>
-        <span class="name-animation">
-          <span>K</span><span>E</span><span>S</span><span>H</span><span>@</span><span>V</span>
-        </span>
-        <div class="line-three"> PYTHON DEVELOPER | DEVOPS ENGINEER  </div>
-      </h1>
-      
+      <div class="scroll-ind">
+        <div class="muted">scroll down</div>
+        <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
+      </div>
+    </section>
 
-      <section id="about" class="section hidden">  
+    <!-- About -->
+    <section id="about" class="section hidden" aria-hidden="true">
+      <div class="section-head">
+        <h2><i class="fas fa-user"></i> About Me</h2>
+        <button id="close-about" class="close-btn" aria-label="Close About">&times;</button>
+      </div>
+      <div>
+        <p class="muted">Hi — I'm Keshav. I'm a Python Developer and DevOps Engineer building reliable infrastructure and delightful user experiences. Replace this text with whatever you want to show here.</p>
+      </div>
+    </section>
 
-        <div class="section-header">
-          <h2>About Me</h2>
-          <button id="close-about" class="close-btn">&times;</button>
+    <!-- Skills -->
+    <section id="skills" class="section hidden" aria-hidden="true">
+      <div class="section-head">
+        <h2><i class="fas fa-code"></i> My Skills</h2>
+        <button id="close-skills" class="close-btn">&times;</button>
+      </div>
+
+      <div style="display:flex;gap:18px;flex-direction:column">
+        <div>
+          <h3 style="color:var(--accent);margin-bottom:8px">DevOps & Cloud</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">Docker</span>
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">Kubernetes</span>
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">AWS</span>
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">Terraform</span>
+          </div>
         </div>
-        <p>
-          Hi, I'm Keshav — a passionate Frontend Developer who loves turning ideas into pixel-perfect, interactive experiences. I specialize in building modern, responsive web interfaces using HTML, CSS, JavaScript, and React. Always learning, always coding.
-        </p>
-      </section>
 
-      <section id="skills" class="section hidden">
-        <div class="section-header">
-          <h2>My Skills</h2>
-          <button id="close-skills" class="close-btn">&times;</button>
+        <div>
+          <h3 style="color:var(--accent);margin-bottom:8px">Programming</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">Python</span>
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">Java</span>
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">JavaScript</span>
+            <span class="muted" style="background:#0f1315;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">HTML/CSS</span>
+          </div>
         </div>
-        <div class="skills-grid">
-          <span class="skill-badge">HTML</span>
-          <span class="skill-badge">CSS</span>
-          <span class="skill-badge">JavaScript</span>
-          <span class="skill-badge">SQL</span>
-          <span class="skill-badge">Microservices</span>
-          <span class="skill-badge">linux-ubuntu</span>
-          <span class="skill-badge">PowerShell</span>
-          <span class="skill-badge">CloudShell</span>
-          <span class="skill-badge">AWS</span>
-          <span class="skill-badge">Docker</span>
-          <span class="skill-badge">Kubernetes</span>
-          <span class="skill-badge">Gafana</span>
-          <span class="skill-badge">Jinkins</span>
-          <span class="skill-badge">Python</span>
-          <span class="skill-badge">Data Visulization</span>
-          <span class="skill-badge">Power Bi</span>
-          <span class="skill-badge">MS Excel</span>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+          <div class="card" style="padding:18px;text-align:center">
+            <div style="font-size:26px;color:var(--accent);font-weight:800">5+</div>
+            <div class="muted">Projects</div>
+          </div>
+          <div class="card" style="padding:18px;text-align:center">
+            <div style="font-size:26px;color:var(--accent);font-weight:800">2</div>
+            <div class="muted">Years</div>
+          </div>
+          <div class="card" style="padding:18px;text-align:center">
+            <div style="font-size:26px;color:var(--accent);font-weight:800">10+</div>
+            <div class="muted">Skills</div>
+          </div>
         </div>
-      </section>
-          
-      <p>Front End Developer | Cloud and Devops Engineer</p>
-      
-      <button class="glow-btn" onclick="openModal()">Contact Me</button>
-      <button class="glow-btn">View Projects</button>
-      <button class="glow-btn">Certifications</button>
-      
-     
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section hidden" aria-hidden="true">
+      <div class="section-head">
+        <h2><i class="fas fa-briefcase"></i> Projects</h2>
+        <button id="close-projects" class="close-btn">&times;</button>
+      </div>
+
+      <div class="grid" id="projects-grid">
+        <div class="card lightbox-item"><img src="project1.jpg" alt="Project 1"><div class="meta"><h3>Project One</h3><div class="muted">Web App</div></div></div>
+        <div class="card lightbox-item"><img src="project2.jpg" alt="Project 2"><div class="meta"><h3>Project Two</h3><div class="muted">CI/CD Pipeline</div></div></div>
+        <div class="card lightbox-item"><img src="project3.jpg" alt="Project 3"><div class="meta"><h3>Project Three</h3><div class="muted">Cloud Deployment</div></div></div>
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section id="certificates" class="section hidden" aria-hidden="true">
+      <div class="section-head">
+        <h2><i class="fas fa-certificate"></i> Certifications</h2>
+        <button id="close-certificates" class="close-btn">&times;</button>
+      </div>
+
+      <div class="grid" id="cert-grid">
+        <div class="card lightbox-item"><img src="cert1.jpg" alt="AWS Cloud Practitioner"><div class="meta"><h3>AWS Cloud Practitioner</h3><div class="muted">Amazon</div></div></div>
+        <div class="card lightbox-item"><img src="cert2.jpg" alt="Docker Essentials"><div class="meta"><h3>Docker Essentials</h3><div class="muted">Docker</div></div></div>
+        <div class="card lightbox-item"><img src="cert3.jpg" alt="Kubernetes Fundamentals"><div class="meta"><h3>Kubernetes Fundamentals</h3><div class="muted">CNCF</div></div></div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+      <img id="lightbox-img" src="" alt="Preview">
     </div>
-    <div class="scroll-indicator">scroll down &darr;</div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="section" style="max-width:520px; display:none; position:fixed; left:50%; top:12%; transform:translateX(-50%); z-index:4000;">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="font-size:28px;color:var(--accent)"><i class="fas fa-paper-plane"></i></div>
+          <div>
+            <h3 style="margin-bottom:4px">Get in touch</h3>
+            <div class="muted">Choose an option to contact me</div>
+          </div>
+        </div>
+
+        <a class="card" href="mailto:keshavsen1518@gmail.com" style="display:flex;gap:12px;align-items:center;padding:12px;text-decoration:none;color:inherit">
+          <div style="font-size:18px"><i class="fas fa-envelope"></i></div>
+          <div><strong>Email</strong><div class="muted" style="font-size:13px">keshavsen1518@gmail.com</div></div>
+        </a>
+
+        <a class="card" href="https://wa.me/918882260778" target="_blank" style="display:flex;gap:12px;align-items:center;padding:12px;text-decoration:none;color:inherit">
+          <div style="font-size:18px"><i class="fab fa-whatsapp"></i></div>
+          <div><strong>WhatsApp</strong><div class="muted" style="font-size:13px">Chat on WhatsApp</div></div>
+        </a>
+
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <script src="script.js"></script>
+<script>
+/* Unified JS for toggles, lightbox, modal, animations */
+document.addEventListener('DOMContentLoaded',()=>{
 
+  // Buttons & sections
+  const aboutLink = document.getElementById('about-link');
+  const skillsLink = document.getElementById('skills-link');
+  const projectsNav = document.getElementById('projects-link');
+  const viewProjectsBtn = document.getElementById('view-projects-btn');
+  const certBtn = document.getElementById('cert-btn');
+  const followLink = document.getElementById('follow-link');
 
-<!-- Contact Modal Box -->
-<div id="contactModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2>Get in Touch</h2>
-    <div class="contact-options">
-      <a href="keshavsen1518@gmail.com">📧 Email Me</a>
-      <a href="https://wa.me/918882260778" target="_blank">💬 WhatsApp Me</a>
-    </div>
-    <div class="social-links">
-      <p>Follow us</p>
-  <a href="https://www.instagram.com/keshav_s37/" target="_blank">📸</a>
-      <a href="https://twitter.com/yourprofile" target="_blank">🐦</a>
-    <a href="https://linkedin.com/in/yourprofile" target="_blank">💼</a>
-    </div>
-  </div>
-</div>
+  const aboutSection = document.getElementById('about');
+  const skillsSection = document.getElementById('skills');
+  const projectsSection = document.getElementById('projects');
+  const certificatesSection = document.getElementById('certificates');
 
+  const closeAbout = document.getElementById('close-about');
+  const closeSkills = document.getElementById('close-skills');
+  const closeProjects = document.getElementById('close-projects');
+  const closeCertificates = document.getElementById('close-certificates');
+
+  const hero = document.querySelector('.hero');
+
+  function openSection(section){
+    if(!section) return;
+    // slide hero a bit for focus
+    if(section===projectsSection||section===certificatesSection) hero.style.transform = 'translateY(-36px) scale(.995)';
+    section.classList.remove('hidden');
+    // force reflow then show
+    void section.offsetWidth;
+    section.classList.add('show');
+    section.setAttribute('aria-hidden','false');
+    section.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function closeSection(section){
+    if(!section) return;
+    section.classList.remove('show');
+    setTimeout(()=>{
+      section.classList.add('hidden');
+      section.setAttribute('aria-hidden','true');
+      if(section===projectsSection||section===certificatesSection) hero.style.transform = '';
+    },380);
+  }
+
+  // attach nav events
+  if(aboutLink && aboutSection){ aboutLink.addEventListener('click', e=>{ e.preventDefault(); openSection(aboutSection); }); closeAbout && closeAbout.addEventListener('click', ()=>closeSection(aboutSection)); }
+  if(skillsLink && skillsSection){ skillsLink.addEventListener('click', e=>{ e.preventDefault(); openSection(skillsSection); }); closeSkills && closeSkills.addEventListener('click', ()=>closeSection(skillsSection)); }
+  if(projectsNav){ projectsNav.addEventListener('click', e=>{ e.preventDefault(); openSection(projectsSection); }); }
+  if(viewProjectsBtn){ viewProjectsBtn.addEventListener('click', ()=>openSection(projectsSection)); }
+  closeProjects && closeProjects.addEventListener('click', ()=>closeSection(projectsSection));
+  if(certBtn){ certBtn.addEventListener('click', ()=>openSection(certificatesSection)); }
+  closeCertificates && closeCertificates.addEventListener('click', ()=>closeSection(certificatesSection));
+  if(followLink){ followLink.addEventListener('click', e=>{ e.preventDefault(); openModal(); }); }
+
+  // lightbox: clicking any .lightbox-item opens the inner img
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.lightbox-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const img = item.querySelector('img');
+      if(!img) return;
+      lightboxImg.src = img.src;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  // close lightbox on click outside or ESC
+  lightbox && lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeLightbox(); closeModal(); }});
+  function closeLightbox(){ if(lightbox){ lightbox.style.display='none'; lightboxImg.src=''; document.body.style.overflow='auto'; } }
+
+  // Modal open/close (modal is contactModal styled as fixed .section)
+  const contactModal = document.getElementById('contactModal');
+  window.openModal = function(){ if(contactModal){ contactModal.style.display='block'; contactModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; } };
+  window.closeModal = function(){ if(contactModal){ contactModal.style.display='none'; contactModal.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; } };
+
+  // small reveal animations for badges and stat-cards
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.card, .muted, .section h2').forEach(el=>{
+    el.style.opacity = 0; el.style.transform = 'translateY(12px)'; el.style.transition = 'all .6s var(--ease)';
+    observer.observe(el);
+  });
+
+  // type effect for scroll text (small)
+  const s = document.querySelector('.scroll-ind .muted');
+  if(s){
+    const txt = s.textContent.trim();
+    s.textContent = '';
+    let i=0;
+    const t = ()=>{ if(i<txt.length){ s.textContent += txt.charAt(i++); setTimeout(t,80) } };
+    setTimeout(t,700);
+  }
+
+  // friendly console
+  console.log("Keshav's portfolio loaded — sections, modal, lightbox ready.");
+});
+</script>
 </body>
-
 </html>
